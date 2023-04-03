@@ -64,6 +64,9 @@ const logInWithGoogle = async () => {
             </h2>
             <button onClick={logInWithGoogle}> Log In </button>
         </div>
+        <div>
+          <Link to="/signup"> Don't have an account? Sign up </Link>
+        </div>
     </div>
   );
 };
