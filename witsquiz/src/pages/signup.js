@@ -60,7 +60,10 @@ export const SignUp = () => {
                      <img src={"/google.png"} alt = "logo" width="90" height="30" />
                 </h2>
                 <button onClick={logInWithGoogle}>Sign Up by Google</button>
-            </div>          
+            </div>
+            <div>
+                    <Link to="/login"> Already have an account? Log in </Link>
+            </div>
         </div>
         );
 }
