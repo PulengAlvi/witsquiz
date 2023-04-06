@@ -1,5 +1,7 @@
 # witsquiz
 
+https://app.travis-ci.com/PulengAlvi/witsquiz.svg?branch=main
+
 ## Description 
 ***
 In this project we will be designing and implementing a quiz platform
