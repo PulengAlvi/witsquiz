@@ -35,5 +35,5 @@ $ npm run start
 ```
 side informartion : when installing the project on your text editor make sure no other file is opened.
 ***
-
+[![Build Status](https://app.travis-ci.com/PulengAlvi/witsquiz.svg?branch=main)]
 ## 
