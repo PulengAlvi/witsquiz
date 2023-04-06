@@ -7,6 +7,15 @@ export const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, setUser] = useState({});
+    //const[PasswordError ,setPassErr]=useState("");
+    
+    
+    /* function isValidPassword(password) {
+        // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return regex.test(password);
+      }*/
+      
 
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
@@ -18,6 +27,7 @@ export const SignUp = () => {
         try{
             await createUserWithEmailAndPassword(auth,email,password);
             console.log(user);
+ 
         }
         catch(err){
             console.error(err.message);
