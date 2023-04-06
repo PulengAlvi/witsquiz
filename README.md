@@ -1,5 +1,5 @@
 # witsquiz
-
+[![Build Status](https://app.travis-ci.com/Rofhiwa67/Wits-Social.svg?branch=main)](https://app.travis-ci.com/Rofhiwa67/Wits-Social)
 https://app.travis-ci.com/PulengAlvi/witsquiz.svg?branch=main
 
 ## Description 
