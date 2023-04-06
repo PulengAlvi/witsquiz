@@ -11,7 +11,7 @@ body {
 .navbar {
   width: 100%;
   height: 80px;
-  background-color: slateblue;
+  background-color: #00416a;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -45,4 +45,35 @@ body {
 .user img {
   font-size: 15px;
   border-radius: 50%;
+}
+.links a:hover{
+  color: #ffd700;
+}
+.user p:hover{
+  color: red;
+}
+.first {
+  background-color: #00416a;
+  color: #fff;
+  width : 10%;
+  border-color: #ffd700;
+  transition: all 0.3s ease
+}
+.first:hover {
+  color: #ffd700;
+  transform: rotate(360deg);
+  transform: scale(1.01);
+}
+.fields {
+  margin: 50px 0px;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: gray;
+  border-style: outset;
 }
