@@ -7,6 +7,7 @@ import { SignUp } from "./pages/signup";
 import { Navbar } from "./components/navbar";
 
 function App() {
+  //reactjs is a single html page app, so here we setup navigation bar with links/paths to different pages
   return (
     <div className="App">
       <Router>
