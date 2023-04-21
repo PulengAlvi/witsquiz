@@ -47,5 +47,5 @@ jobs:
 workflows:
       on_commit:
         jobs:
-          #- build
-          - test
+          - build
+          #- test
