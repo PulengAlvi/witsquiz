@@ -11,7 +11,8 @@ jobs:
           - node/install-packages:
               pkg-manager: npm
           - run:
-              command: npm start
+              command: npm install
+              command: npm run build
           - persist_to_workspace:
               root: ~/project
               paths:
