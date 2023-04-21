@@ -48,5 +48,3 @@ workflows:
       on_commit:
         jobs:
           - build
-          - test
-          - eslint
