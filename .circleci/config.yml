@@ -1,42 +1,52 @@
 version: 2.1
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@4.7.0
+    
 jobs:
-  build-and-deploy:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - node/install-packages:
-                pkg-manager: npm
-            - run:
-                command: npm run test
-                name: Run tests
-            - run:
-                command: npm run build
-                name: Build app
-            - persist_to_workspace:
-                root: ~/project
-                paths:
-                  - .
-
-deploy: # this can be any name you choose
-    executor: heroku/default
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - heroku/deploy-via-git:
-          force: true
-
+      build:
+        docker:
+          - image: cimg/node:17.2.0
+        steps:
+          - checkout
+          - node/install-packages:
+              pkg-manager: npm
+          - run:
+              command: npm run build
+          - persist_to_workspace:
+              root: ~/project
+              paths:
+                - .
+      test:
+        docker:
+          - image: cimg/node:17.2.0
+        steps:
+          - checkout
+          - node/install-packages:
+              pkg-manager: npm
+          - run:
+              command: npm run test
+              name: Test app
+          - persist_to_workspace:
+              root: ~/project
+              paths:
+                - .
+      eslint:
+        docker:
+          - image: cimg/node:17.2.0
+        steps:
+          - checkout
+          - node/install-packages:
+              pkg-manager: npm
+          - run:
+              command: npm run lint
+              name: Lint app
+          - persist_to_workspace:
+              root: ~/project
+              paths:
+                - .
 workflows:
-  build_test_deploy:
-    jobs:
-      - build_and_test
-      - deploy:
-          requires:
-            - build_and_test # only deploy if the build_and_test job has completed
-          filters:
-            branches:
-              only: main # only deploy when on main
+      on_commit:
+        jobs:
+          - build
+          - test
+          - eslint
