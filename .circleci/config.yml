@@ -31,7 +31,7 @@ deploy: # this can be any name you choose
           force: true
 
 workflows:
-  build_and_test:
+  build_test_deploy:
     jobs:
       - build_and_test
       - deploy:
