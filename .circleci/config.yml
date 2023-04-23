@@ -1,0 +1,51 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.7.0
+    
+jobs:
+      build:
+        docker:
+          - image: cimg/node:17.2.0
+        steps:
+          - checkout
+          - node/install-packages:
+              pkg-manager: npm
+          - run:
+              command: npm run build
+          - persist_to_workspace:
+              root: ~/project
+              paths:
+                - .
+      test:
+        docker:
+          - image: cimg/node:17.2.0
+        steps:
+          - checkout
+          - node/install-packages:
+              pkg-manager: npm
+          - run:
+              command: npm run test
+              name: Test app
+          - persist_to_workspace:
+              root: ~/project
+              paths:
+                - .
+      eslint:
+        docker:
+          - image: cimg/node:17.2.0
+        steps:
+          - checkout
+          - node/install-packages:
+              pkg-manager: npm
+          - run:
+              command: npm run lint
+              name: Lint app
+          - persist_to_workspace:
+              root: ~/project
+              paths:
+                - .
+workflows:
+      on_commit:
+        jobs:
+          - build
+          #- test

@@ -1,7 +1,5 @@
 # witsquiz
-[![Build Status](https://app.travis-ci.com/Rofhiwa67/Wits-Social.svg?branch=main)](https://app.travis-ci.com/Rofhiwa67/Wits-Social)
-[![codecov](https://codecov.io/gh/codecov/sourcegraph-codecov/branch/master/graph/badge.svg)](https://codecov.io/gh/codecov/sourcegraph-codecov)
-https://app.travis-ci.com/PulengAlvi/witsquiz.svg?branch=main
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/PulengAlvi/witsquiz/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/PulengAlvi/witsquiz/tree/main)
 
 ## Description 
 ***
