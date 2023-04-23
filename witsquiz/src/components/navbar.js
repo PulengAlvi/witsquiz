@@ -48,20 +48,30 @@ export const Navbar = () => {
     </div>
       <div className="links">
         <Link to="/"> Home </Link>
+        <Link to ="/createquiz">Create</Link>
+        <Link to ="/addquestions">Add</Link>
+       
+              
         {!user && (
         <>
         <Link to="/login"> Login </Link>
         <Link to="/signup"> SignUp </Link>
+       
         </>
         )}
       </div>
+      
       <div className="user">
         {user && (
+         
           <>
-            <p onClick={() => handleOpenMenu()}> {user?.displayName} </p>
+          
+            <p onClick={() => handleOpenMenu()}> {user?.displayName} </p>            
+            
             <p>
             <img src={photoURL} onClick={() => handleOpenMenu()} alt = "logo.jpg" width="30" height="30" />
             </p> 
+            
           </>
         )}
       </div>
