@@ -7,6 +7,7 @@ import { Navbar } from "./components/navbar";
 import Createquiz from "./pages/createquiz";
 import Answerquiz from "./pages/answerquiz";
 import Addquestions from "./pages/addquestions";
+import Leaderboard from "./pages/leaderboard";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/createquiz" element={<Createquiz />} />
           <Route path="/answerquiz" element={<Answerquiz/>} />
           <Route path="/addquestions" element={<Addquestions/>} />
+          <Route path = "/viewLeaderboard" element= {<Leaderboard/>}/>
          
         
           

@@ -1,4 +1,4 @@
-<<<<<<< HEAD:witsquiz/src/pages/main.js
+//<<<<<<< HEAD:witsquiz/src/pages/main.js
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { onSnapshot } from "firebase/firestore";
@@ -55,6 +55,7 @@ export const Main = () => {
                                <p style={{fontWeight:'bold',fontSize:'20'}}>{quiz.title}</p>
                                 <p>Number of questions :{quiz.numberOfQues} </p>
                                 <p>Category :{quiz.category}</p>
+                                <p>Duration :{quiz.Time}</p>
 
                                 <button style={{
                                   backgroundColor:'white',
@@ -82,12 +83,5 @@ export const Main = () => {
          
     )
   };
-=======
-export const Main = () => {
-    //Main method returns layout of html home page
-    return <div>
-         <h1> WitsQuiz Home Page</h1>
-         <img src={"/logo2.jpg"} alt = "/logo1.jpg" width="600" height="600" />
-         </div>;
-  };
->>>>>>> 65ecce179121a1d7420cf75d3da4f85aab266733:src/pages/main.js
+//=======
+

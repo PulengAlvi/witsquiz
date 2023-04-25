@@ -12,11 +12,12 @@ import ErrorMessage from '../components/ErrorMessage';
     const [numberOfQues,setNumberOfQues] = useState("");
     const [category,setCategory] = useState("");
     const [errorMessage,setErrorMessage] = useState(false);
+    const [timer , setTimer] = useState ('00')
 
     const navigate = useNavigate();
     //collect data from page to database
    const handleSave = async ()=>{
-    if( title ==='' || category === '' || numberOfQues ===''){
+    if( title ==='' || category === '' || numberOfQues ==='' || timer ===''){
       //display error message
       setErrorMessage(true);
       return 
@@ -28,6 +29,7 @@ import ErrorMessage from '../components/ErrorMessage';
     setTitle('');
     setCategory('');
     setNumberOfQues('');
+    setTimer('')
     navigate('/addquestions')
    };
     
@@ -56,6 +58,16 @@ import ErrorMessage from '../components/ErrorMessage';
         type='Number'
         value={numberOfQues}
         onChange={(e) =>setNumberOfQues(e.target.value)}
+        >
+        </TextField>
+        <TextField
+
+        label="Duration of quiz"
+        variant ="outlined"
+        style={{marginBottom:30}}
+        type='time'
+        value={timer}
+        onChange={(e) =>setTimer(e.target.value)}
         >
         </TextField>
 
