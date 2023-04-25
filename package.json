@@ -5,15 +5,12 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-<<<<<<< HEAD
-    "@mui/material": "^5.12.0",
-=======
     "@mui/material": "^5.11.15",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "config-yml": "^0.10.3",
->>>>>>> 65ecce179121a1d7420cf75d3da4f85aab266733
+
     "firebase": "^9.18.0",
     "firebase-admin": "^11.5.0",
     "react": "^18.2.0",
