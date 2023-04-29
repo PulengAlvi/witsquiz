@@ -196,3 +196,15 @@ body {
   pointer-events: none;
 }
 
+.menu {
+  width: 450px;
+  height: 500px;
+  border-radius: 20px;
+  background-color: #f8f8ff;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+

@@ -27,7 +27,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/createquiz" element={<CreateQuiz />} />
+          <Route path="/createquiz" element={<CreateQuiz/>} />
           <Route path="/account" element={<Account />} />
         </Routes>
       </Router>
