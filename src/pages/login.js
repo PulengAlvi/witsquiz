@@ -33,7 +33,7 @@ export const Login = () => {
             const user = await signInWithEmailAndPassword(auth,loginEmail,loginPassword);
             console.log(user);
             //navigate("/");
-            navigate("/question");
+            navigate("/");
         } 
         catch (error) {
             console.log(error.message);
@@ -54,7 +54,7 @@ const logInWithGoogle = async () => {
         const result = await signInWithPopup(auth, googleProvider);
         console.log(result);
         //navigate("/");
-        navigate("/createquiz");
+        navigate("/");
     }
     catch(err){
         console.error(err);

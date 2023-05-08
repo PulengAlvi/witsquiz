@@ -6,5 +6,5 @@ test("Should render Main component", () => {
     render(<Main/>);
     const mainElement = screen.getByTestId("main-1");
     expect(mainElement).toBeInTheDocument();
-    expect(mainElement).toHaveTextContent("WitsQuiz Home Page");
+    aexpect(mainElement).toHaveTextContent("WitsQuiz Home Page");
 })

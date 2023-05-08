@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { upload } from "../config/firebase";
+import { upload, UploadD } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
 
 export const Account = () => {
     const [currentUser] = useAuthState(auth);
-
+    const [displayName, setDN] = useState(null)
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [username, setUN] = useState(null);
     const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
 
     const handleChange = (e) => {
@@ -15,15 +16,27 @@ export const Account = () => {
             setPhoto(e.target.files[0])
         }
     }
+    const handle_Change = (e) => {
+      if (e.target.value) {
+          setDN(e.target.value)
+      }
+  }
 
     const handleClick = () => {
         upload(photo, currentUser, setLoading);
     }
+    const handle_Click = () => {
+      UploadD(displayName, currentUser, setLoading);
+  }
 
     useEffect(() => {
         if (currentUser?.photoURL) {
-            setPhotoURL(currentUser.photoURL);
-        }}, [currentUser])
+          setPhotoURL(currentUser.photoURL);
+        }
+        if(currentUser?.displayName){
+          setUN(currentUser.displayName);
+        }
+      }, [currentUser])
 //if photo == null, disable the 'upload' button
   return (
     <div className="fields">
@@ -31,9 +44,16 @@ export const Account = () => {
           <h1>
           <img src={photoURL} alt="Avatar" className="avatar" />
           </h1>
+          <p>{username}</p>
           <input type="file" onChange={handleChange} />
           <button disabled={loading || !photo} className="first" onClick={handleClick}>Upload</button>
         </div>
+        <h1> </h1>
+        <div>
+          <input type="text" placeholder="Enter display name" onChange={handle_Change} /> <h1> </h1>
+          <button disabled={loading || !displayName} className="first" onClick={handle_Click}>Upload</button>
+        </div> 
+        
     </div>
   );
 }

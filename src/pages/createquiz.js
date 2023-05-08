@@ -1,32 +1,44 @@
 import { db } from "../config/firebase";
 import { uid } from "uid";
 import { set, ref } from "firebase/database";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import React , { useState } from "react";
 export const CreateQuiz = () => {
+    const navigate = useNavigate();
     const [quizTitle, setQuizTitle] = useState("");
     const [numQ, setNumQ] = useState(0);
     const [timer, setTimer] = useState(0);
-    let [qCount, setQCount] = useState(1);
-    let [ques_tion, setQ] = useState("");
-    let [opt, setOpt] = useState("");
-    let [optOne, setOptOne] = useState("");
-    let [optTwo, setOptTwo] = useState("");
-    let [optThree, setOptThree] = useState("");
-    let questionSet = [];
-
-    let submit = () => {
-        // disable ={document.getElementById("edit").value === "" || document.getElementById("edit0").value === "" || document.getElementById("edit1").value === "" || document.getElementById("edit2").value === "" || document.getElementById("edit").value === ""}
-        // disable ={document.getElementById("texxt").value === "" || document.getElementById("texxt0").value === "" || document.getElementById("texxt1").value === ""}
-        
-        let incorrectA = [opt, optOne, optTwo];
-        let dataSet = {
+   // let [qCount, setQCount] = useState(1);
+   const [ques_tion, setQ] = useState("");
+   const [opt, setOpt] = useState("");
+   const [optOne, setOptOne] = useState("");
+   const [optTwo, setOptTwo] = useState("");
+   const [optThree, setOptThree] = useState("");
+   //const [incorrectA, setWList] = useState([]);
+    const [qCount, setCounter] = useState(1);
+    const incorrectA = [opt, optOne, optTwo];
+    const dataSet = {
             question: ques_tion,
             incorrectAnswer: incorrectA,
             correctAnswer: optThree
+        };
+    const [questionSet,setQList] = useState([]);
+    
+    const handleSubmit = () =>{
+        //e.preventDefault();
+        setCounter(qCount => qCount+1)
+        if(qCount === 1){
+            setQList([dataSet]);
         }
-        questionSet.push(dataSet);
-        setQCount(qCount + 1);
-        if(qCount > numQ){
+        if(opt&&optOne&&optTwo&&optThree&&ques_tion){
+            setQList((ls)=>[...ls,dataSet])
+            setOpt("")
+            setOptOne("")
+            setOptTwo("")
+            setOptThree("")
+        }
+        console.log(questionSet)
+        if(qCount >= numQ){
             const uuid = uid();
             set(ref(db,`/quizlist/${uuid}`),{
                 quizTitle,
@@ -34,18 +46,13 @@ export const CreateQuiz = () => {
                 timer,
                 questionSet
             });
+            navigate("/");
         }
-        
-        document.getElementById("edit").value = "";
-        document.getElementById("edit0").value = "";
-        document.getElementById("edit1").value = "";
-        document.getElementById("edit2").value = "";
-        document.getElementById("edit3").value = "";
     };
     return (
         <div>
             <h1>Create a new quiz</h1>
-                <div>
+                <div className="divbox">
                     <h4>Quiz title</h4>
                     <p>
                         <input
@@ -78,15 +85,15 @@ export const CreateQuiz = () => {
                     </p>
                 
                 </div>
-                <div>
+                <div className="divbox1">
                     <h3>Question</h3>
                     <p>
                         <input
                             placeholder="Enter question ?"
                             type="text"
-                            id="edit"
-                            required
-                            onChange={(dd) => { setQ(dd.target.value); }}
+                            name="ques_tion"
+                            value={ques_tion}
+                            onChange={(e) => { setQ(e.target.value); }}
                         />
                     </p>
                     <h3>Incorrect Answers</h3>
@@ -94,8 +101,8 @@ export const CreateQuiz = () => {
                         <input
                             placeholder="Enter 1st option"
                             type="text"
-                            id="edit0"
-                            required
+                            name="opt"
+                            value={opt}
                             onChange={(e) => { setOpt(e.target.value); }}
                         />
                     </p>
@@ -103,18 +110,18 @@ export const CreateQuiz = () => {
                         <input
                             placeholder="Enter 2nd option"
                             type="text"
-                            id="edit1"
-                            required
-                            onChange={(f) => { setOptOne(f.target.value); }}
+                            name="optOne"
+                            value={optOne}
+                            onChange={(e) => { setOptOne(e.target.value); }}
                         />
                     </p>
                     <p>
                         <input
                             placeholder="Enter 3rd option"
                             type="text"
-                            id="edit2"
-                            required
-                            onChange={(g) => { setOptTwo(g.target.value); }}
+                            name="optTwo"
+                            value={optTwo}
+                            onChange={(e) => { setOptTwo(e.target.value); }}
                         />
                     </p>
                     <h3>Correct Answer</h3>
@@ -122,12 +129,12 @@ export const CreateQuiz = () => {
                         <input
                             placeholder="Enter 4th option"
                             type="text"
-                            id="edit3"
-                            required
-                            onChange={(h) => { setOptThree(h.target.value); }}
+                            name="optThree"
+                            value={optThree}
+                            onChange={(e) => { setOptThree(e.target.value); }}
                         />
                     </p>
-                    <button className="first" onClick={submit}>"Next/Submit"</button>
+                    <button className="first" onClick={handleSubmit}>Add</button>
                 </div>
         </div>
     );

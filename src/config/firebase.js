@@ -49,3 +49,9 @@ export async function upload(file, currentUser, setLoading){
   setLoading(false);
   alert("New Profile Picture Uploaded!!!");
 }
+export async function UploadD(displayName, currentUser, setLoading){
+  setLoading(true);
+  updateProfile(currentUser, {displayName})
+  setLoading(false);
+  alert("Display name Changed!!!");
+}

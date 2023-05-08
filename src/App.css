@@ -208,3 +208,17 @@ body {
   align-items: center;
 }
 
+.divbox {
+  border: 1px solid red;
+  position: absolute;
+  left: 100px;
+  width: 500px;
+  padding: 10px;
+}
+.divbox1 {
+  border: 1px solid red;
+  position: absolute;
+  right: 100px;
+  width: 500px;
+}
+
