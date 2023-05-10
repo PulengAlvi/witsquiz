@@ -1,42 +1,18 @@
-import React, { useState } from 'react'
-
-const Answerquiz = () => {
-
-
-  //get quiz details by id
-
-  //get questions by current quiz id
-    const [currentQuizId,setCurrentQuizId] = useState("");
-
-    const [options,setOptions] = useState('');
-    const [currentQues,setCurrentQues] = useState(0);
-    const [title,setTitle] = useState("");
+import React, { useState} from 'react';
+import { useNavigate } from "react-router-dom";
 
 
-    const getQuestionAndQuizDetails =() =>{
+export const Answerquiz= () => {
+ const[questions,getAllQuizzes] = useState("");
+  
+    return (
+      <div>
+        <div>
+          <h2>Please answer the quiz bellow ,quiz will be auto submitted when the timer reaches 00:00:00</h2>      
+        </div>
+      </div>
+    );
+  
+        }
 
-        //get Quiz
-
-        //get question for current quiz id
-
-        //shuffle the options
-    }
-
-    
-  return ( 
-    <div>
-      {/*Title of quiz */}
-
-      {/*Question*/}
-
-      {/*options*/}
-
-      
-
-    </div>
-
-
-  )
-}
-
-export default Answerquiz
+  export default Answerquiz;
