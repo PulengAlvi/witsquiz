@@ -14,11 +14,12 @@ import 'firebase/auth';
 
 //console.log(displayTime)
 
-export const Quizz = () => {
+//export const Quizz = () => {
   //navigate("/");
   // const getTitle = Main();
   // const displayTime = Timer();
 
+export const Quizz = ({ handleViewFeedback }) => {
   const [quizState, dispatch] = useContext(QuizContext);
   const [userName , setName] = useState("");
   const [quiztittle, setTitle] = useState("");
@@ -74,7 +75,7 @@ export const Quizz = () => {
         >
           Restart
         </div>
-        
+        <button onClick={handleViewFeedback}>View Feedback</button> {/* Add the "View Feedback" button */}
       </div>
  )}
      {!quizState.showResults && (
