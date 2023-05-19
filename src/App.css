@@ -283,6 +283,14 @@ body {
   border-color: #ffd700;
   transition: all 0.3s ease
 }
+  .fir {
+    background-color: #00416a;
+    color: #fff;
+    size: inherit;
+    height: fit-content;
+    border-color: #ffd700;
+    transition: all 0.3s ease
+}
 .first:hover {
   color: #ffd700;
   transform: rotate(360deg);

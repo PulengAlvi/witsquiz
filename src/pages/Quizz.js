@@ -67,7 +67,9 @@ export const Quizz = ({ handleViewFeedback }) => {
             {quizState.questions.length} right.
     
           </div>
-          <button className="first"  onClick={submit_quiz}>Submit Quiz</button>
+          <button className="fir"  onClick={submit_quiz}>Submit Quiz</button>
+          
+          <button className="fir" onClick={handleViewFeedback}>View Feedback</button> {/* Add the "View Feedback" button */}
         </div>
         <div
           onClick={() => dispatch({ type: "RESTART" })}
@@ -75,7 +77,6 @@ export const Quizz = ({ handleViewFeedback }) => {
         >
           Restart
         </div>
-        <button onClick={handleViewFeedback}>View Feedback</button> {/* Add the "View Feedback" button */}
       </div>
  )}
      {!quizState.showResults && (
