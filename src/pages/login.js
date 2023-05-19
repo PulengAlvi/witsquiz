@@ -32,7 +32,8 @@ export const Login = () => {
         try {
             const user = await signInWithEmailAndPassword(auth,loginEmail,loginPassword);
             console.log(user);
-            navigate("/");
+           // navigate("/");
+            navigate("/account");
         } 
         catch (error) {
             console.log(error.message);
@@ -52,26 +53,20 @@ const logInWithGoogle = async () => {
     try{
         const result = await signInWithPopup(auth, googleProvider);
         console.log(result);
-        navigate("/");
+        //navigate("/");
+        navigate("/account");
     }
     catch(err){
         console.error(err);
     }
+   
+    
 };
-//This function is used to check if email input is a valid email address
-/*
-const validateEmail = (Email) => {
-    return String(Email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };*/
-  //This function is used to check if email input is a valid email address
+
   function isValidEmail(email) {
     return /\S+@\S+\.\S+/.test(email);
   }
-  //logIn function returns layout of the html log In page
+  
   return (
     <div>
         <div>

@@ -1,15 +1,15 @@
-//<<<<<<< HEAD:witsquiz/src/components/navbar.js
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
-//import { Account } from "../pages/account"
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useEffect, useState } from "react";
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   //This variable is used to confirm which user is logged in, or whether a user is logged in or not
   const [user] = useAuthState(auth);
   const [currentUser] = useAuthState(auth);
@@ -17,6 +17,7 @@ export const Navbar = () => {
   //signuserOut method is going to be used to signOut current logged in user
   const signUserOut = async () => {
     await signOut(auth);
+    navigate("/");
     setOpen(false);
   };
 
@@ -37,6 +38,12 @@ export const Navbar = () => {
     setOpen(false);
     setselectedElement(event.target);
   }
+  const handleClick = () => {
+    navigate("/account");
+    setOpen(false);
+    //handleCloseMenu();
+    //this opens in a new tab (believe that is what the owner of the question wanted if not you can do window.location.href = "/insert/your/path/here". 
+  }
   //navbar fuction returns layout of navigation bar on top of every html page in the app
   return (
     <div className="navbar">
@@ -48,32 +55,25 @@ export const Navbar = () => {
         
     </div>
       <div className="links">
-        <Link to="/"> Home </Link>
-        <Link to ="/createquiz">Create</Link>
-        <Link to ="/addquestions">Add</Link>
-        <Link to = "/viewLeaderboard">Leaderboard</Link>
-       
-              
+        <Link to="/home"> Home </Link>
         {!user && (
         <>
+        <Link to="/"> Home </Link>
         <Link to="/login"> Login </Link>
         <Link to="/signup"> SignUp </Link>
-       
+        <Link to="/leaderboard"> Leaderboard </Link>
+        
         </>
         )}
       </div>
-      
+
       <div className="user">
         {user && (
-         
           <>
-          
-            <p onClick={() => handleOpenMenu()}> {user?.displayName} </p>            
-            
+            <p onClick={() => handleOpenMenu()}> {user?.displayName} </p>
             <p>
             <img src={photoURL} onClick={() => handleOpenMenu()} alt = "logo.jpg" width="30" height="30" />
             </p> 
-            
           </>
         )}
       </div>
@@ -83,10 +83,10 @@ export const Navbar = () => {
         open={open}
         onClose={handleCloseMenu}
         >
-          <MenuItem onClick={handleCloseMenu}> Account </MenuItem>
+          <MenuItem onClick={handleClick}> Account </MenuItem>
           <MenuItem onClick={handleCloseMenu}> Settings </MenuItem>
           <MenuItem onClick={signUserOut}> Log Out </MenuItem>
          </Menu>
     </div>
   );
-        }
+};

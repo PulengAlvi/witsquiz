@@ -1,87 +1,78 @@
-//<<<<<<< HEAD:witsquiz/src/pages/main.js
-import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
-import { onSnapshot } from "firebase/firestore";
-import { collection,getDocs } from "firebase/firestore";
+import{ ref, onValue } from "firebase/database";
 import { useNavigate } from "react-router-dom";
+import React , { useEffect } from "react";
+import { useState } from "react";
+import firebase from 'firebase/app';
+import {auth} from "../config/firebase"
+import 'firebase/auth';
 
-
-
-export const Main = () => {
-
+export const Main =()=> {
     //Main method returns layout of html home page
-    const [allQuizzes,setAllQuizzes] = useState([]);
-    const [quiz,setQuiz] = useState("");
-
-    const getAllQuizzes = async () =>{
-      await getDocs(collection(db, "Quizzes"))
-            .then((querySnapshot)=>{               
-                const newData = querySnapshot.docs
-                    .map((doc) => ({...doc.data(), id:doc.id }));
-                setAllQuizzes(newData);                
-                console.log(quiz, newData);
-            })
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
+    
+    const getData = () => {
+      const dataRef = ref(db, '/quizlist') // CHANGE 'chars' TO YOUR DATABASE NAME
+      onValue(dataRef, (snapshot) => {
+        if(snapshot.exists()){
+          setData(snapshot.val());
       
-    }
-    useEffect(()=>{
-      getAllQuizzes();
-  }, [])
-      const navigate = useNavigate();
- 
+        }else{
+          console.log("No data available")
+        }
+      });
+    };
+    useEffect(() => {
+      getData()
+    }, []);
+
+    const [currentUser, setCurrentUser] = useState(null);
+
+
+    const getQuiz_ = () => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setCurrentUser(user);
+      } else {
+        setCurrentUser(null);
+      }
+    });
+
+      }
+      useEffect(() => {
+        getQuiz_()
+      }, []);
      
-    
-
+  
+        const checkLoginStatus = () => {
+          if (currentUser) {
+            navigate("/viewquiz")
+          } else {
+            navigate("/login")
+          }
+        };
+  
     return (
+    <div>
+         <h1 data-testid = "main-1">WitsQuiz Home Page</h1>
+         <img src={"/logo2.jpg"} alt = "/logo1.jpg" width="600" height="600" />
+         <h3>Available Quizzes</h3>
+  
+      {data &&
+        Object.entries(data).map(([id, value]) => (
+          <div key={id}> 
+        <>
+        <button className="first" onClick={checkLoginStatus}>
+          {data[id].quizTitle} <p>Duration:{data[id].timer}</p>
+          </button>
+          <div>
 
-      
- <div>
-  <h1>Browse quizzes</h1>
-   <div className="quiz_listing">
-    
-    {
-                        allQuizzes?.map((quiz,i)=>(
-                            <p key={i} style={{
-                              padding:20,
-                              borderRadius:3,
-                              borderBlockStyle:'solid',
-                              flexDirection:'row',
-                              backgroundColor:'#00416a',
-                             
-                              color:'white',
-                              width:'70%',
-                             
-                              marginLeft:'100px'    
-                            }}>
-                               <p style={{fontWeight:'bold',fontSize:'20'}}>{quiz.title}</p>
-                                <p>Number of questions :{quiz.numberOfQues} </p>
-                                <p>Category :{quiz.category}</p>
-                                <p>Duration :{quiz.Time}</p>
-
-                                <button style={{
-                                  backgroundColor:'white',
-                                  borderRadius:'10px',
-                                  width:'90px',
-                                  height:'30px',
-                                  marginLeft:'150px',
-                                
-                                  
-                                }}
-                                onClick={()=>{
-                                  navigate('/answerQuizScreen',{
-                                    quizId:quiz.id
-                                  })
-                                }}> 
-
-                                  answer</button>              
-                            </p>
-                            
-                        ))
-                    }
-  </div>
-                    
- </div>
-         
-    )
-  };
-//=======
-
+      </div>
+          </>
+          </div>
+           ))} 
+  </div>      
+  ) 
+}
+export default Main;
