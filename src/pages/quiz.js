@@ -9,6 +9,12 @@ const initialState = {
   answers: shuffleAnswers(questions[0]),
   showResults: false,
   correctAnswersCount: 0,
+  feedback: {
+    percentage: 0,
+    correctAnswers: [],
+    wrongAnswers: [],
+    comment: ""
+  }
 };
 
 const reducer = (state, action) => {
@@ -43,7 +49,49 @@ const reducer = (state, action) => {
       };
     }
     case "RESTART": {
-      return initialState;
+      return {
+        ...initialState,
+        feedback: {
+          ...initialState.feedback,
+          comment: state.feedback.comment // Preserve the comment
+        }
+      };
+    }
+    case "SUBMIT_FEEDBACK": {
+      const percentage =
+        (state.correctAnswersCount / state.questions.length) * 100;
+      const correctAnswers = state.questions
+        .filter(
+          (question, index) =>
+            state.correctAnswersCount === index + 1 ||
+            (state.correctAnswersCount === state.questions.length && index + 1 === state.questions.length)
+        )
+        .map((question) => question.question);
+      const wrongAnswers = state.questions
+        .filter(
+          (question, index) => state.correctAnswersCount < index + 1
+        )
+        .map((question) => question.question);
+      const feedback = {
+        percentage,
+        correctAnswers,
+        wrongAnswers,
+        comment: ""
+      };
+      return {
+        ...state,
+        feedback,
+      };
+    }
+    case "SET_COMMENT": {
+      const feedback = {
+        ...state.feedback,
+        comment: action.payload,
+      };
+      return {
+        ...state,
+        feedback,
+      };
     }
     default:
       return state;
@@ -57,3 +105,4 @@ export const QuizProvider = ({ children }) => {
 
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
 };
+
