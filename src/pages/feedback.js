@@ -1,54 +1,63 @@
-import { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { QuizContext } from "./quiz";
 
-export const Feedback = () => {
-  const [quizState] = useContext(QuizContext);
-  const [rating, setRating] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
 
-  const handleRatingChange = (value) => {
-    setRating(value);
+const Feedback = () => {
+  const [quizState] = useContext(QuizContext);
+  const [comment, setComment] = useState("");
+
+  const calculatePercentage = () => {
+    const { correctAnswersCount, questions } = quizState;
+    const totalQuestions = questions.length;
+    return ((correctAnswersCount / totalQuestions) * 100).toFixed(2);
   };
 
-  const handleSubmit = () => {
-    // Submit the rating and comment data to the server or perform any desired action
-    setSubmitted(true);
+  const renderQuestionStatus = () => {
+    const { questions } = quizState;
+    return questions.map((question, index) => (
+      <div key={index}>
+        Question {index + 1}:{" "}
+        {quizState.answers[index +1] === question.correctAnswer ? (
+          <span className="correctAnswer">Correct</span>
+        ) : (
+          <span className="incorrectAnswers">Wrong</span>
+        )}
+      </div>
+    ));
+  };
+
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+
+  const handleSubmitComment = (event) => {
+    event.preventDefault();
+    // Submit the comment to your backend or perform desired action
+    console.log("Submitted comment:", comment);
   };
 
   return (
-    <div className="feedback">
-      <h1>Quiz Feedback</h1>
-      <div className="score">
-        <h2>Your Score: {quizState.correctAnswersCount}/{quizState.questions.length}</h2>
+    <div>
+      <h2>Quiz Feedback</h2>
+      <div>
+        Percentage: {calculatePercentage()}%
       </div>
-      <div className="question-status">
-        {quizState.questions.map((question, index) => (
-          <div key={index}>
-            Question {index + 1}:{" "}
-            {quizState.answers[index] === question.correctAnswer ? "Right" : "Wrong"}
-          </div>
-        ))}
+      <div>
+        <h3>Question Status:</h3>
+        {renderQuestionStatus()}
       </div>
-      <div className="rating-section">
-        <h2>Rate the Quiz:</h2>
-        <div className="stars">
-          {[1, 2, 3, 4, 5].map((value) => (
-            <span
-              key={value}
-              className={`star ${rating >= value ? "filled" : ""}`}
-              onClick={() => handleRatingChange(value)}
-            >
-              &#9733;
-            </span>
-          ))}
-        </div>
-        <p>Your Rating: {rating} stars</p>
-      </div>
-      <div className="comment-section">
-        <h2>Leave a Comment:</h2>
-        <textarea placeholder="Write your comment here..."></textarea>
-        <button onClick={handleSubmit}>Submit</button>
-        {submitted && <p>Submitted</p>}
+      <div>
+        <h3>Comment:</h3>
+        <form onSubmit={handleSubmitComment}>
+          <textarea
+            value={comment}
+            onChange={handleCommentChange}
+            rows={4}
+            cols={50}
+          />
+          <br />
+          <button type="submit">Submit Comment</button>
+        </form>
       </div>
     </div>
   );
