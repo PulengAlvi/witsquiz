@@ -1,7 +1,9 @@
 # witsquiz
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/PulengAlvi/witsquiz/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/PulengAlvi/witsquiz/tree/main)
 
-## Description 
+![homepage](/images/homepage.png)
+
+## Description
 ***
 In this project we will be designing and implementing a quiz platform
 on which users can create and answer quizzes, in the vein of Sporcle or
@@ -33,4 +35,4 @@ $ npm run start
 ```
 side informartion : when installing the project on your text editor make sure no other file is opened.
 ***
-## 
+##
