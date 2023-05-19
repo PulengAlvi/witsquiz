@@ -1,17 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import Question from "./Question";
 import { QuizContext } from "./quiz";
 
-export const Quizz = () => {
+export const Quizz = ({ handleViewFeedback }) => {
   const [quizState, dispatch] = useContext(QuizContext);
-
-  const handleSubmitFeedback = () => {
-    dispatch({ type: "SUBMIT_FEEDBACK" });
-  };
-
-  const handleCommentChange = (event) => {
-    dispatch({ type: "SET_COMMENT", payload: event.target.value });
-  };
 
   return (
     <div className="quiz">
@@ -25,43 +17,13 @@ export const Quizz = () => {
               {quizState.questions.length} right.
             </div>
           </div>
-          <div className="feedback-button" onClick={handleSubmitFeedback}>
-            View Feedback
-          </div>
-          {quizState.feedback.percentage > 0 && (
-            <div className="feedback">
-              <div>Percentage: {quizState.feedback.percentage}%</div>
-              <div>
-                Correct Answers:
-                <ul>
-                  {quizState.feedback.correctAnswers.map((answer, index) => (
-                    <li key={index}>{answer}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                Wrong Answers:
-                <ul>
-                  {quizState.feedback.wrongAnswers.map((answer, index) => (
-                    <li key={index}>{answer}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                Comment:
-                <textarea
-                  value={quizState.feedback.comment}
-                  onChange={handleCommentChange}
-                />
-              </div>
-            </div>
-          )}
           <div
             onClick={() => dispatch({ type: "RESTART" })}
             className="next-button"
           >
             Restart
           </div>
+          <button onClick={handleViewFeedback}>View Feedback</button> {/* Add the "View Feedback" button */}
         </div>
       )}
       {!quizState.showResults && (

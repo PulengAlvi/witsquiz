@@ -1,5 +1,3 @@
-import React from "react";
-
 const Answer = ({
   answerText,
   index,
@@ -14,17 +12,10 @@ const Answer = ({
   const correctAnswerClass = isCorrectAnswer ? "correct-answer" : "";
   const wrongAnswerClass = isWrongAnswer ? "wrong-answer" : "";
   const disabledClass = currentAnswer ? "disabled-answer" : "";
-
-  const handleClick = () => {
-    if (!currentAnswer) {
-      onSelectAnswer(answerText);
-    }
-  };
-
   return (
     <div
       className={`answer ${correctAnswerClass} ${wrongAnswerClass} ${disabledClass}`}
-      onClick={handleClick}
+      onClick={() => onSelectAnswer(answerText)}
     >
       <div className="answer-letter">{letterMapping[index]}</div>
       <div className="answer-text">{answerText}</div>
