@@ -1,7 +1,7 @@
 # witsquiz
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/PulengAlvi/witsquiz/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/PulengAlvi/witsquiz/tree/main)
 
-![homepage](/images/homepage.png)
+![homepage](/images/viewquiz.png)
 
 ## Description
 ***
