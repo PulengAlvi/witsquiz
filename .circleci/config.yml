@@ -52,18 +52,19 @@ workflows:
       - test
       - codecov
       
-      # Add the 'codecov' job below
-      codecov:
-        name: Upload coverage reports to Codecov
-        needs: [test]  # Run this step after the 'test' job
-        steps:
-          - name: Checkout Code
-            uses: actions/checkout@v2
-          - name: Set up Node.js
-            uses: actions/setup-node@v2
-            with:
-              node-version: 17.2.0
-          - name: Install Codecov
-            run: npm install codecov -g
-          - name: Upload coverage to Codecov
-            run: codecov --token=008898c7-75f5-46a7-bf91-c6e97cd71e5c
+# Add the 'codecov' job outside the 'jobs' section
+jobs:
+  codecov:
+    name: Upload coverage reports to Codecov
+    needs: [test]  # Run this step after the 'test' job
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 17.2.0
+      - name: Install Codecov
+        run: npm install codecov -g
+      - name: Upload coverage to Codecov
+        run: codecov --token=008898c7-75f5-46a7-bf91-c6e97cd71e5c
