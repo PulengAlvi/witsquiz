@@ -16,4 +16,4 @@ jobs:
         run: npm run test
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-          env: CODECOV_TOKEN: ${{ 008898c7-75f5-46a7-bf91-c6e97cd71e5c }}
+          run: codecov --token=008898c7-75f5-46a7-bf91-c6e97cd71e5c
