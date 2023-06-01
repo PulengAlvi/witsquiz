@@ -28,6 +28,8 @@ jobs:
           - run:
               command: npm run test
               name: Test app
+          - store_test_results:
+            path: testResults
           - persist_to_workspace:
               root: ~/project
               paths:
