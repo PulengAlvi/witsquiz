@@ -47,6 +47,6 @@ jobs:
 workflows:
       on_commit:
         jobs:
-          #- build
+          #- buildit
           - test
           
