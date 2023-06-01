@@ -16,6 +16,8 @@ jobs:
               root: ~/project
               paths:
                 - .
+      run:
+        
       test:
         docker:
           - image: cimg/node:17.2.0
