@@ -46,12 +46,12 @@ jobs:
             - .
           
 workflows:
+  version: 2
   on_commit:
     jobs:
-      #- build
       - test
       - codecov
-      
+
 # Add the 'codecov' job outside the 'jobs' section
 jobs:
   codecov:
