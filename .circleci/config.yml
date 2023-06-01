@@ -3,51 +3,65 @@ orbs:
   node: circleci/node@4.7.0
     
 jobs:
-      build:
-        docker:
-          - image: cimg/node:17.2.0
-        steps:
-          - checkout
-          - node/install-packages:
-              pkg-manager: npm
-          - run:
-              command: npm run build
-          - persist_to_workspace:
-              root: ~/project
-              paths:
-                - .
-      test:
-        docker:
-          - image: cimg/node:17.2.0
-        steps:
-          - checkout
-          - node/install-packages:
-              pkg-manager: npm
-          - run:
-              command: npm run test
-              name: Test app
-          - persist_to_workspace:
-              root: ~/project
-              paths:
-                - .
-      eslint:
-        docker:
-          - image: cimg/node:17.2.0
-        steps:
-          - checkout
-          - node/install-packages:
-              pkg-manager: npm
-          - run:
-              command: npm run lint
-              name: Lint app
-          - persist_to_workspace:
-              root: ~/project
-              paths:
-                - .
+  build:
+    docker:
+      - image: cimg/node:17.2.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+  test:
+    docker:
+      - image: cimg/node:17.2.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm run test
+          name: Test app
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+  eslint:
+    docker:
+      - image: cimg/node:17.2.0
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm run lint
+          name: Lint app
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+  codecov:
+    name: Upload coverage reports to Codecov
+    needs: [test]  # Run this step after the 'test' job
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 17.2.0
+      - name: Install Codecov
+        run: npm install codecov -g
+      - name: Upload coverage to Codecov
+        run: codecov --token=008898c7-75f5-46a7-bf91-c6e97cd71e5c
+      
 workflows:
-      on_commit:
-        jobs:
-          #- build
-          - test
-      - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
+  on_commit:
+    jobs:
+      #- build
+      - test
+      - codecov
