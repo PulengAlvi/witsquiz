@@ -13,16 +13,16 @@ export const Main =()=> {
     const navigate = useNavigate();
     
     const getData = () => {
-      const dataRef = ref(db, '/quizlist') // CHANGE 'chars' TO YOUR DATABASE NAME
+      const dataRef = ref(db, '/quizlist');
       onValue(dataRef, (snapshot) => {
-        if(snapshot.exists()){
+        if (snapshot.exists()) {
           setData(snapshot.val());
-      
-        }else{
-          console.log("No data available")
+        } else {
+          console.log("No data available");
         }
       });
     };
+    
     useEffect(() => {
       getData()
     }, []);
@@ -31,27 +31,27 @@ export const Main =()=> {
 
 
     const getQuiz_ = () => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+      const user = auth.currentUser;
       if (user) {
         setCurrentUser(user);
       } else {
         setCurrentUser(null);
       }
-    });
-
-      }
-      useEffect(() => {
-        getQuiz_()
-      }, []);
+    };
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged(getQuiz_);
+      return () => unsubscribe(); // Cleanup the subscription when the component unmounts
+    }, []);
      
   
-        const checkLoginStatus = () => {
-          if (currentUser) {
-            navigate("/viewquiz")
-          } else {
-            navigate("/login")
-          }
-        };
+    const checkLoginStatus = () => {
+      if (currentUser) {
+        navigate("/viewquiz");
+      } else {
+        navigate("/login");
+      }
+    };
+    
   
     return (
     <div>
