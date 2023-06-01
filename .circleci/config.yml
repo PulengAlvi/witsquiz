@@ -30,12 +30,7 @@ jobs:
           command: npm run test
           name: Test app
       - store_test_results:
-          path: testResults
-      - run:
-          name: Convert test results to JUnit XML
-          command: |
-            npm install -g junit-xml
-            junit-xml merge testResults/* --output merged-test-results.xml
+          path: ../testResults
       - persist_to_workspace:
           root: ~/project
           paths:
